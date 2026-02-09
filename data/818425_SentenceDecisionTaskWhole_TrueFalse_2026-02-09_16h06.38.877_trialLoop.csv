@@ -1,0 +1,27 @@
+﻿Block,Stimuli_Type,Stimuli,One_subsubj_two_subObj,correct_answer,Block_raw,One_subsubj_two_subObj_raw,Stimuli_Type_raw,Stimuli_raw,correct_answer_raw,thisN_raw,thisRepN_raw,thisTrialN_raw,valid_accuracy_raw,valid_is_correct?_raw,valid_mouse_key_resp_raw,valid_resp_raw,valid_rt_raw
+9,LiterallyTrue,The little hammer was a gavel.,no_change,True,9,1,LiterallyFalse,The paper flower was a comet.,False,0,0,0,0,no,left,True,2.396378899924457
+9,LiterallyTrue,The lone note was a piccolo.,no_change,True,9,1,LiterallyFalse,The calm water was a tornado.,False,1,0,1,0,no,left,True,2.0841027998831123
+9,LiterallyTrue,His pathetic plea was a whimper.,no_change,True,9,no_change,Metaphors,The politician's career was a comet.,False,2,0,2,1,yes,right,False,1.8334880999755114
+9,LiterallyTrue,The child's request was a whine.,no_change,True,9,no_change,LiterallyTrue,The child's request was a whine.,True,3,0,3,1,yes,left,True,2.0524764999281615
+9,LiterallyTrue,The garden nuisance was a snail.,no_change,True,9,no_change,Metaphors,Her chores were a sad tune.,False,4,0,4,0,no,left,True,3.292499100090936
+9,LiterallyTrue,The repair included a new wheel.,no_change,True,9,no_change,Metaphors,The meal was a digestive tornado.,False,5,0,5,0,no,left,True,0.6425558999180794
+9,LiterallyTrue,The hike was a leisurely stroll.,no_change,True,9,no_change,LiterallyTrue,The faucet leak was a trickle.,True,6,0,6,1,yes,left,True,2.372413100209087
+9,LiterallyTrue,The faucet leak was a trickle.,no_change,True,9,no_change,Metaphors,Her birthday was a foreboding gong.,False,7,0,7,1,yes,right,False,2.665814599953592
+9,LiterallyFalse,The dinner bell was a house.,2,False,9,2,LiterallyFalse,The jingle was a dirty brush.,False,8,0,8,0,no,left,True,1.9295814000070095
+9,LiterallyFalse,The jingle was a dirty brush.,2,False,9,no_change,LiterallyTrue,The lone note was a piccolo.,True,9,0,9,0,no,right,False,1.6135501000098884
+9,LiterallyFalse,The paper flower was a comet.,1,False,9,no_change,LiterallyTrue,His pathetic plea was a whimper.,True,10,0,10,0,no,right,False,2.14650069992058
+9,LiterallyFalse,The calm water was a tornado.,1,False,9,no_change,LiterallyTrue,The garden nuisance was a snail.,True,11,0,11,1,yes,left,True,1.7966807999182492
+9,Metaphors,Her birthday was a foreboding gong.,no_change,False,9,2,LiterallyFalse,The dinner bell was a house.,False,12,0,12,1,yes,right,False,3.5468613000120968
+9,Metaphors,Her chores were a sad tune.,no_change,False,9,no_change,LiterallyTrue,The hike was a leisurely stroll.,True,13,0,13,0,no,right,False,3.3140706999693066
+9,Metaphors,The politician's career was a comet.,no_change,False,9,no_change,LiterallyTrue,The repair included a new wheel.,True,14,0,14,1,yes,left,True,2.880504900123924
+9,Metaphors,The meal was a digestive tornado.,no_change,False,9,no_change,LiterallyTrue,The little hammer was a gavel.,True,15,0,15,1,yes,left,True,2.9665972001384944
+
+extraInfo
+participant_id,818425
+tf_mapping,TrueFalse
+date,2026-02-09_16h06.38.877
+expName,SentenceDecisionTaskWhole
+expVersion,v2
+psychopyVersion,2025.1.1
+frameRate,61.005852265660124
+expStart,2026-02-09 16h06.46.041495 -0700

@@ -128,7 +128,6 @@ var InstructionText;
 var StartKeyboard;
 var StimsClock;
 var StimuliText;
-var earlyMouseClick;
 var LeftResponseInstruction;
 var rightResponseInstruction;
 var validResponseMouseClick;
@@ -169,8 +168,6 @@ async function experimentInit() {
   
   You will complete 10 blocks of sentence judgement, with a 6-second break in between blocks.
   
-  sentences will be presented you,followed by a fixation cross.
-  
   For each sentence,you must indicate
   
   ${left}(left mouse click) if the sentence could be a literally true fact.For example, "The funny sound was his snore" is a statement that could be literally true;or
@@ -179,7 +176,7 @@ async function experimentInit() {
   
   
   Use the mouse to indicate "True" or "False" for each sentence as quickly and accurately as you can.
-  The cross will turn purple once your response has been registered.
+  A purple cross will appear once your response has been registered.
   
   
   Press the "spacebar" to begin.`
@@ -215,10 +212,6 @@ async function experimentInit() {
     depth: 0.0 
   });
   
-  earlyMouseClick = new core.Mouse({
-    win: psychoJS.window,
-  });
-  earlyMouseClick.mouseClock = new util.Clock();
   LeftResponseInstruction = new visual.TextStim({
     win: psychoJS.window,
     name: 'LeftResponseInstruction',
@@ -228,7 +221,7 @@ async function experimentInit() {
     pos: [(- 0.4), (- 0.3)], draggable: false, height: 0.035,  wrapWidth: undefined, ori: 0.0,
     languageStyle: 'LTR',
     color: new util.Color('black'),  opacity: undefined,
-    depth: -3.0 
+    depth: -1.0 
   });
   
   rightResponseInstruction = new visual.TextStim({
@@ -240,7 +233,7 @@ async function experimentInit() {
     pos: [0.4, (- 0.3)], draggable: false, height: 0.035,  wrapWidth: undefined, ori: 0.0,
     languageStyle: 'LTR',
     color: new util.Color('black'),  opacity: undefined,
-    depth: -4.0 
+    depth: -2.0 
   });
   
   validResponseMouseClick = new core.Mouse({
@@ -256,7 +249,7 @@ async function experimentInit() {
     pos: [0, 0], draggable: false, height: 0.08,  wrapWidth: undefined, ori: 0.0,
     languageStyle: 'LTR',
     color: new util.Color('black'),  opacity: undefined,
-    depth: -6.0 
+    depth: -4.0 
   });
   
   // Initialize components for Routine "Fixation_Cross"
@@ -328,7 +321,7 @@ async function experimentInit() {
       //create filename for result
       let now = new Date();
       let timestamp = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+'_'+now.getHours()+'h'+  now.getMinutes() + 'm' + now.getSeconds() + 's';
-      let filename = timestamp +'_'+psychoJS._experiment._experimentName+'_'+ expInfo["tf_mapping"]+'_sub'+ expInfo["participant_id"]+'.csv'
+      let filename = timestamp +'_'+psychoJS._experiment._experimentName+'_'+'4.5s'+'_'+expInfo["tf_mapping"]+'_sub'+ expInfo["participant_id"]+'.csv'
     
       //extract result from experiment
       let dataObj = psychoJS._experiment._trialsData;
@@ -666,10 +659,6 @@ function blockLoopLoopEndIteration(scheduler, snapshot) {
 
 var StimsMaxDurationReached;
 var gotValidClick;
-var early_clicked;
-var early_response_time;
-var early_response;
-var mouse_response;
 var validClick;
 var valid_response_time;
 var valid_resp;
@@ -691,16 +680,6 @@ function StimsRoutineBegin(snapshot) {
     StimsMaxDurationReached = false;
     // update component parameters for each repeat
     StimuliText.setText(Stimuli);
-    // setup some python lists for storing info about the earlyMouseClick
-    gotValidClick = false; // until a click is received
-    earlyMouseClick.mouseClock.reset();
-    // Run 'Begin Routine' code from storeEarlyMouseClick
-    early_clicked = false;
-    early_response_time = [];
-    early_response = "";
-    mouse_response = "";
-    responsefixationCrossDisplay.setColor("black");
-    
     // setup some python lists for storing info about the validResponseMouseClick
     gotValidClick = false; // until a click is received
     validResponseMouseClick.mouseClock.reset();
@@ -715,7 +694,6 @@ function StimsRoutineBegin(snapshot) {
     // keep track of which components have finished
     StimsComponents = [];
     StimsComponents.push(StimuliText);
-    StimsComponents.push(earlyMouseClick);
     StimsComponents.push(LeftResponseInstruction);
     StimsComponents.push(rightResponseInstruction);
     StimsComponents.push(validResponseMouseClick);
@@ -731,7 +709,6 @@ function StimsRoutineBegin(snapshot) {
 
 
 var frameRemains;
-var buttons;
 var validButtons;
 function StimsRoutineEachFrame() {
   return async function () {
@@ -755,7 +732,7 @@ function StimsRoutineEachFrame() {
     if (StimuliText.status === PsychoJS.Status.STARTED) {
     }
     
-    frameRemains = 0.0 + 1.5 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    frameRemains = 0.0 + 4.5 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
     if (StimuliText.status === PsychoJS.Status.STARTED && t >= frameRemains) {
       // keep track of stop time/frame for later
       StimuliText.tStop = t;  // not accounting for scr refresh
@@ -763,25 +740,6 @@ function StimsRoutineEachFrame() {
       // update status
       StimuliText.status = PsychoJS.Status.FINISHED;
       StimuliText.setAutoDraw(false);
-    }
-    
-    // Run 'Each Frame' code from storeEarlyMouseClick
-    if (((t < 1.5) && (! early_clicked))) {
-        buttons = earlyMouseClick.getPressed();
-        if ((buttons[0] || buttons[2])) {
-            early_clicked = true;
-            early_response_time = earlyMouseClick.mouseClock.getTime();
-            if (buttons[0]) {
-                early_response = left;
-                mouse_response = "left";
-            } else {
-                if (buttons[2]) {
-                    early_response = right;
-                    mouse_response = "right";
-                }
-            }
-            responsefixationCrossDisplay.setColor("purple");
-        }
     }
     
     
@@ -840,7 +798,7 @@ function StimsRoutineEachFrame() {
     
     
     // *responsefixationCrossDisplay* updates
-    if (t >= 1.5 && responsefixationCrossDisplay.status === PsychoJS.Status.NOT_STARTED) {
+    if (t >= 0.0 && responsefixationCrossDisplay.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
       responsefixationCrossDisplay.tStart = t;  // (not accounting for frame time here)
       responsefixationCrossDisplay.frameNStart = frameN;  // exact frame index
@@ -853,7 +811,7 @@ function StimsRoutineEachFrame() {
     if (responsefixationCrossDisplay.status === PsychoJS.Status.STARTED) {
     }
     
-    frameRemains = 1.5 + 3.0 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    frameRemains = 0.0 + 4.5 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
     if (responsefixationCrossDisplay.status === PsychoJS.Status.STARTED && t >= frameRemains) {
       // keep track of stop time/frame for later
       responsefixationCrossDisplay.tStop = t;  // not accounting for scr refresh
@@ -864,11 +822,13 @@ function StimsRoutineEachFrame() {
     }
     
     // Run 'Each Frame' code from storeValidResponseMouseClick
-    if (((t >= 1.5) && (! validClick))) {
+    if ((! validClick)) {
+        responsefixationCrossDisplay.status = NOT_STARTED;
+        responsefixationCrossDisplay.setAutoDraw(false);
         validButtons = validResponseMouseClick.getPressed();
         if ((validButtons[0] || validButtons[2])) {
             validClick = true;
-            valid_response_time = (validResponseMouseClick.mouseClock.getTime() - 1.5);
+            valid_response_time = validResponseMouseClick.mouseClock.getTime();
             if (validButtons[0]) {
                 valid_resp = left;
                 valid_mouse_response = "left";
@@ -878,6 +838,9 @@ function StimsRoutineEachFrame() {
                     valid_mouse_response = "right";
                 }
             }
+            StimuliText.setAutoDraw(false);
+            responsefixationCrossDisplay.setAutoDraw(true);
+            responsefixationCrossDisplay.status = PsychoJS.Status.STARTED;
             responsefixationCrossDisplay.setColor("purple");
         }
     }
@@ -910,9 +873,6 @@ function StimsRoutineEachFrame() {
 }
 
 
-var correctStr;
-var corr_text;
-var corr;
 var validStr;
 var valid_corr_text;
 var valid_corr;
@@ -926,17 +886,6 @@ function StimsRoutineEnd(snapshot) {
     });
     psychoJS.experiment.addData('Stims.stopped', globalClock.getTime());
     // store data for psychoJS.experiment (ExperimentHandler)
-    // Run 'End Routine' code from storeEarlyMouseClick
-    correctStr = (correct_answer ? "True" : "False");
-    corr_text = ((early_response.toString() === correctStr) ? "yes" : ((early_response !== null) ? "no" : null));
-    corr = ((early_response.toString() === correctStr) ? "1" : ((early_response !== null) ? "0" : null));
-    trialLoop.addData("early_rt", early_response_time);
-    trialLoop.addData("early_resp", early_response);
-    trialLoop.addData("early_mouse_key_resp", mouse_response);
-    trialLoop.addData("early_is_correct?", corr_text);
-    trialLoop.addData("early_accuracy", corr);
-    
-    // store data for psychoJS.experiment (ExperimentHandler)
     // Run 'End Routine' code from storeValidResponseMouseClick
     validStr = (correct_answer ? "True" : "False");
     valid_corr_text = ((valid_resp === validStr) ? "yes" : ((valid_resp !== null) ? "no" : null));
@@ -946,7 +895,6 @@ function StimsRoutineEnd(snapshot) {
     trialLoop.addData("valid_mouse_key_resp", valid_mouse_response);
     trialLoop.addData("valid_is_correct?", valid_corr_text);
     trialLoop.addData("valid_accuracy", valid_corr);
-    validResponseMouseClick.mouseClock.reset();
     responsefixationCrossDisplay.setColor("black");
     console.log(valid_response_time);
     
