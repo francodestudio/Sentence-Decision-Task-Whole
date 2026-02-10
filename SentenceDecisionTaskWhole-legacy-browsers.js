@@ -691,6 +691,8 @@ function StimsRoutineBegin(snapshot) {
     valid_response_time = [];
     valid_resp = "";
     valid_mouse_response = "";
+    validResponseMouseClick.clickReset();
+    psychoJS.eventManager.clearEvents({"eventType": "mouse"});
     
     psychoJS.experiment.addData('Stims.started', globalClock.getTime());
     StimsMaxDuration = null
@@ -713,7 +715,6 @@ function StimsRoutineBegin(snapshot) {
 
 var frameRemains;
 var validButtons;
-var click_time_global;
 function StimsRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'Stims' ---
@@ -834,9 +835,7 @@ function StimsRoutineEachFrame() {
     if (((! validClick) && (t > 0.5))) {
         validButtons = validResponseMouseClick.getPressed();
         if ((validButtons[0] || validButtons[2])) {
-            click_time_global = globalClock.getTime();
-            validClick = true;
-            valid_response_time = (click_time_global - StimuliText.tStartRefresh);
+            valid_response_time = validResponseMouseClick.mouseClock.getTime();
             if (validButtons[0]) {
                 valid_resp = left;
                 valid_mouse_response = "left";
