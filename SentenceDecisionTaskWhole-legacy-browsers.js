@@ -243,7 +243,7 @@ async function experimentInit() {
   responsefixationCrossDisplay = new visual.TextStim({
     win: psychoJS.window,
     name: 'responsefixationCrossDisplay',
-    text: '+',
+    text: '',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.08,  wrapWidth: undefined, ori: 0.0,
@@ -660,6 +660,7 @@ function blockLoopLoopEndIteration(scheduler, snapshot) {
 var StimsMaxDurationReached;
 var gotValidClick;
 var validClick;
+var displayCross;
 var valid_response_time;
 var valid_resp;
 var valid_mouse_response;
@@ -685,6 +686,7 @@ function StimsRoutineBegin(snapshot) {
     validResponseMouseClick.mouseClock.reset();
     // Run 'Begin Routine' code from storeValidResponseMouseClick
     validClick = false;
+    displayCross = false;
     valid_response_time = [];
     valid_resp = "";
     valid_mouse_response = "";
@@ -799,6 +801,8 @@ function StimsRoutineEachFrame() {
     
     // *responsefixationCrossDisplay* updates
     if (t >= 0.0 && responsefixationCrossDisplay.status === PsychoJS.Status.NOT_STARTED) {
+      // update params
+      responsefixationCrossDisplay.setText('+', false);
       // keep track of start time/frame for later
       responsefixationCrossDisplay.tStart = t;  // (not accounting for frame time here)
       responsefixationCrossDisplay.frameNStart = frameN;  // exact frame index
@@ -809,6 +813,8 @@ function StimsRoutineEachFrame() {
     
     // if responsefixationCrossDisplay is active this frame...
     if (responsefixationCrossDisplay.status === PsychoJS.Status.STARTED) {
+      // update params
+      responsefixationCrossDisplay.setText('+', false);
     }
     
     frameRemains = 0.0 + 4.5 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
@@ -822,9 +828,12 @@ function StimsRoutineEachFrame() {
     }
     
     // Run 'Each Frame' code from storeValidResponseMouseClick
-    if ((! validClick)) {
+    if ((! displayCross)) {
         responsefixationCrossDisplay.status = NOT_STARTED;
         responsefixationCrossDisplay.setAutoDraw(false);
+        displayCross = true;
+    }
+    if (((! validClick) && (t > 0.5))) {
         validButtons = validResponseMouseClick.getPressed();
         if ((validButtons[0] || validButtons[2])) {
             validClick = true;
