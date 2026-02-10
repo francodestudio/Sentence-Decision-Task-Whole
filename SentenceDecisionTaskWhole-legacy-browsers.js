@@ -713,6 +713,7 @@ function StimsRoutineBegin(snapshot) {
 
 var frameRemains;
 var validButtons;
+var click_time_global;
 function StimsRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'Stims' ---
@@ -833,8 +834,9 @@ function StimsRoutineEachFrame() {
     if (((! validClick) && (t > 0.5))) {
         validButtons = validResponseMouseClick.getPressed();
         if ((validButtons[0] || validButtons[2])) {
+            click_time_global = globalClock.getTime();
             validClick = true;
-            valid_response_time = validResponseMouseClick.mouseClock.getTime();
+            valid_response_time = (click_time_global - StimuliText.tStartRefresh);
             if (validButtons[0]) {
                 valid_resp = left;
                 valid_mouse_response = "left";
@@ -902,6 +904,7 @@ function StimsRoutineEnd(snapshot) {
     trialLoop.addData("valid_is_correct?", valid_corr_text);
     trialLoop.addData("valid_accuracy", valid_corr);
     responsefixationCrossDisplay.setColor("black");
+    console.log(valid_response_time);
     
     if (routineForceEnded) {
         routineTimer.reset();} else if (StimsMaxDurationReached) {
