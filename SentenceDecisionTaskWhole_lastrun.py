@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 09, 2026, at 16:18
+    on February 10, 2026, at 13:47
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -448,7 +448,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     x, y = [None, None]
     validResponseMouseClick.mouseClock = core.Clock()
     responsefixationCrossDisplay = visual.TextStim(win=win, name='responsefixationCrossDisplay',
-        text='+',
+        text='',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.08, wrapWidth=None, ori=0.0, 
         color='black', colorSpace='rgb', opacity=None, 
@@ -743,6 +743,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             validResponseMouseClick.mouseClock.reset()
             # Run 'Begin Routine' code from storeValidResponseMouseClick
             validClick = False
+            displayCross =  False
             valid_response_time =[]
             valid_resp = ''
             valid_mouse_response =''
@@ -915,7 +916,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # if responsefixationCrossDisplay is active this frame...
                 if responsefixationCrossDisplay.status == STARTED:
                     # update params
-                    pass
+                    responsefixationCrossDisplay.setText('+', log=False)
                 
                 # if responsefixationCrossDisplay is stopping this frame...
                 if responsefixationCrossDisplay.status == STARTED:
@@ -931,25 +932,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         responsefixationCrossDisplay.status = FINISHED
                         responsefixationCrossDisplay.setAutoDraw(False)
                 # Run 'Each Frame' code from storeValidResponseMouseClick
-                if not validClick:
+                if not displayCross:
                     responsefixationCrossDisplay.status = NOT_STARTED
                     responsefixationCrossDisplay.setAutoDraw(False)
-                    validButtons= validResponseMouseClick.getPressed()
-                    if (validButtons[0] or validButtons[2]):
-                        validClick = True
-                        valid_response_time = validResponseMouseClick.mouseClock.getTime()
-                        if validButtons[0]: 
-                            valid_resp = left
-                            valid_mouse_response = 'left'
-                        elif validButtons[2]:  
-                            valid_resp= right  
-                            valid_mouse_response = 'right'
-                        StimuliText.setAutoDraw(False)
-                        responsefixationCrossDisplay.setAutoDraw(True)
-                        responsefixationCrossDisplay.status = STARTED
-                        responsefixationCrossDisplay.setColor('purple')
+                    displayCross = True
                 
-                       
+                if not validClick and t>0.50:
+                        validButtons= validResponseMouseClick.getPressed()
+                        if (validButtons[0] or validButtons[2]):
+                            validClick = True
+                            valid_response_time = validResponseMouseClick.mouseClock.getTime()
+                            if validButtons[0]: 
+                                valid_resp = left
+                                valid_mouse_response = 'left'
+                            elif validButtons[2]:  
+                                valid_resp= right  
+                                valid_mouse_response = 'right'
+                            StimuliText.setAutoDraw(False)
+                            responsefixationCrossDisplay.setAutoDraw(True)
+                            responsefixationCrossDisplay.status = STARTED
+                            responsefixationCrossDisplay.setColor('purple')
+                
+                           
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
