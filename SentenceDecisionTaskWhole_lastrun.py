@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 10, 2026, at 13:54
+    on February 10, 2026, at 15:19
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -941,8 +941,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if not validClick and t>0.50:
                         validButtons= validResponseMouseClick.getPressed()
                         if (validButtons[0] or validButtons[2]):
+                            click_time_global = globalClock.getTime()
                             validClick = True
-                            valid_response_time = validResponseMouseClick.mouseClock.getTime()
+                            valid_response_time = click_time_global - StimuliText.tStartRefresh
                             if validButtons[0]: 
                                 valid_resp = left
                                 valid_mouse_response = 'left'
@@ -953,6 +954,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             responsefixationCrossDisplay.setAutoDraw(True)
                             responsefixationCrossDisplay.status = STARTED
                             responsefixationCrossDisplay.setColor('purple')
+                            
                 
                            
                 
@@ -1011,6 +1013,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             trialLoop.addData('valid_accuracy', valid_corr)
             #validResponseMouseClick.mouseClock.reset()
             responsefixationCrossDisplay.setColor('black')
+            print(valid_response_time)
             
             # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
             if Stims.maxDurationReached:
