@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 10, 2026, at 13:47
+    on February 10, 2026, at 13:54
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -741,6 +741,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # setup some python lists for storing info about the validResponseMouseClick
             gotValidClick = False  # until a click is received
             validResponseMouseClick.mouseClock.reset()
+            responsefixationCrossDisplay.setText('+')
             # Run 'Begin Routine' code from storeValidResponseMouseClick
             validClick = False
             displayCross =  False
@@ -916,7 +917,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # if responsefixationCrossDisplay is active this frame...
                 if responsefixationCrossDisplay.status == STARTED:
                     # update params
-                    responsefixationCrossDisplay.setText('+', log=False)
+                    pass
                 
                 # if responsefixationCrossDisplay is stopping this frame...
                 if responsefixationCrossDisplay.status == STARTED:
@@ -1010,7 +1011,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             trialLoop.addData('valid_accuracy', valid_corr)
             #validResponseMouseClick.mouseClock.reset()
             responsefixationCrossDisplay.setColor('black')
-            print(valid_response_time)
+            
             # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
             if Stims.maxDurationReached:
                 routineTimer.addTime(-Stims.maxDuration)

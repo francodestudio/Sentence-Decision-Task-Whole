@@ -684,6 +684,7 @@ function StimsRoutineBegin(snapshot) {
     // setup some python lists for storing info about the validResponseMouseClick
     gotValidClick = false; // until a click is received
     validResponseMouseClick.mouseClock.reset();
+    responsefixationCrossDisplay.setText('+');
     // Run 'Begin Routine' code from storeValidResponseMouseClick
     validClick = false;
     displayCross = false;
@@ -801,8 +802,6 @@ function StimsRoutineEachFrame() {
     
     // *responsefixationCrossDisplay* updates
     if (t >= 0.0 && responsefixationCrossDisplay.status === PsychoJS.Status.NOT_STARTED) {
-      // update params
-      responsefixationCrossDisplay.setText('+', false);
       // keep track of start time/frame for later
       responsefixationCrossDisplay.tStart = t;  // (not accounting for frame time here)
       responsefixationCrossDisplay.frameNStart = frameN;  // exact frame index
@@ -813,8 +812,6 @@ function StimsRoutineEachFrame() {
     
     // if responsefixationCrossDisplay is active this frame...
     if (responsefixationCrossDisplay.status === PsychoJS.Status.STARTED) {
-      // update params
-      responsefixationCrossDisplay.setText('+', false);
     }
     
     frameRemains = 0.0 + 4.5 - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
