@@ -909,7 +909,6 @@ function StimsRoutineEnd(snapshot) {
     trialLoop.addData("valid_is_correct?", valid_corr_text);
     trialLoop.addData("valid_accuracy", valid_corr);
     responsefixationCrossDisplay.setColor("black");
-    console.log(valid_response_time);
     
     if (routineForceEnded) {
         routineTimer.reset();} else if (StimsMaxDurationReached) {
