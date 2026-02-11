@@ -301,7 +301,7 @@ async function experimentInit() {
   Instruction_Exit = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instruction_Exit',
-    text: 'You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x\' key to exit.',
+    text: 'You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x\' key to submit.',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.05,  wrapWidth: undefined, ori: 0.0,
