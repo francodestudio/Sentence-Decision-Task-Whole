@@ -183,7 +183,7 @@ async function experimentInit() {
   ${right}(right mouse click) if the sentence could not be a literally true fact.For example, "The desert storm was a carrot" could never be true.
   
   
-  Use the mouse to indicate "True" or "False" for each sentence as quickly and accurately as you can.
+  You do not need to move or drag the cursor.Use only the appropriate mouse buttons to indicate "True" or "False" for each sentence as 'quickly' and 'accurately' as you can.
   A purple cross will appear once your response has been registered.
   
   
@@ -696,8 +696,6 @@ function StimsRoutineBegin(snapshot) {
     valid_response_time = [];
     valid_resp = "";
     valid_mouse_response = "";
-    validResponseMouseClick.clickReset();
-    psychoJS.eventManager.clearEvents({"eventType": "mouse"});
     
     psychoJS.experiment.addData('Stims.started', globalClock.getTime());
     StimsMaxDuration = null
@@ -907,7 +905,6 @@ function StimsRoutineEnd(snapshot) {
     trialLoop.addData("valid_is_correct?", valid_corr_text);
     trialLoop.addData("valid_accuracy", valid_corr);
     responsefixationCrossDisplay.setColor("black");
-    console.log(valid_response_time);
     
     if (routineForceEnded) {
         routineTimer.reset();} else if (StimsMaxDurationReached) {

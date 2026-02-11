@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 10, 2026, at 15:29
+    on February 10, 2026, at 18:23
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -748,8 +748,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             valid_response_time =[]
             valid_resp = ''
             valid_mouse_response =''
-            validResponseMouseClick.clickReset()
-            event.clearEvents(eventType='mouse')
+            
                 
             
             
@@ -885,6 +884,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     validResponseMouseClick.tStart = t  # local t and not account for scr refresh
                     validResponseMouseClick.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(validResponseMouseClick, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'validResponseMouseClick.started')
                     # update status
                     validResponseMouseClick.status = STARTED
                     prevButtonState = validResponseMouseClick.getPressed()  # if button is down already this ISN'T a new click
@@ -897,6 +898,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         validResponseMouseClick.tStop = t  # not accounting for scr refresh
                         validResponseMouseClick.tStopRefresh = tThisFlipGlobal  # on global time
                         validResponseMouseClick.frameNStop = frameN  # exact frame index
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'validResponseMouseClick.stopped')
                         # update status
                         validResponseMouseClick.status = FINISHED
                 
@@ -942,15 +945,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if not validClick and t>0.50:
                         validButtons= validResponseMouseClick.getPressed()
                         if (validButtons[0] or validButtons[2]):
-                            click_time_global = globalClock.getTime()
-                            validClick = True
-                            valid_response_time = click_time_global - StimuliText.tStartRefresh
+                   
+                        
+                            valid_response_time = validResponseMouseClick.mouseClock.getTime()
+                            
                             if validButtons[0]: 
                                 valid_resp = left
                                 valid_mouse_response = 'left'
                             elif validButtons[2]:  
                                 valid_resp= right  
                                 valid_mouse_response = 'right'
+                     
                             StimuliText.setAutoDraw(False)
                             responsefixationCrossDisplay.setAutoDraw(True)
                             responsefixationCrossDisplay.status = STARTED
