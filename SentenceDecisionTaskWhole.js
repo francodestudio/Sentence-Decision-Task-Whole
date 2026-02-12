@@ -874,7 +874,7 @@ function StimsRoutineEachFrame() {
           responsefixationCrossDisplay.setAutoDraw(false);
           displayCross = true;
       }
-      if (((! validKeyPress) && (validResponseKeyPress.keys.length > 0))) {
+      if (((! validKeyPress) && validResponseKeyPress.keys)) {
           keys = validResponseKeyPress.keys;
           console.log("keys", keys);
           valid_response_time = (validResponseKeyPress.rt + 0.5);

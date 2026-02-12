@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 12, 2026, at 10:09
+    on February 12, 2026, at 10:44
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -398,7 +398,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # Start Code - component code to be run after the window creation
     
     # --- Initialize components for Routine "Start_Task_Routine" ---
-    # Run 'Begin Experiment' code from mouseMappingScript
+    # Run 'Begin Experiment' code from keyboardMappingScript
     if expInfo["tf_mapping"] == 'TrueFalse':
         left = 'True'
         right = 'False'
@@ -412,7 +412,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     \nFor each sentence,you must indicate
     \n{left}(left arrow key) if the sentence could be a literally true fact.For example, \"The funny sound was his snore\" is a statement that could be literally true;or
     \n{right}(right arrow key) if the sentence could not be a literally true fact.For example, \"The desert storm was a carrot\" could never be true.
-    \n\nUse only the appropriate arrow key buttons on your keyboard to indicate \"True\" or \"False\" for each sentence as \'quickly\' and \'accurately\' as you can. 
+    \n\nUse only the left and right arrow key buttons on your keyboard to indicate \"True\" or \"False\" for each sentence as \'quickly\' and \'accurately\' as you can. 
     A purple cross will appear once your response has been registered.
     \n\nPress the \"spacebar\" to begin."""
     
@@ -963,7 +963,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     responsefixationCrossDisplay.setAutoDraw(False)
                     displayCross = True
                 
-                if not validKeyPress and len(validResponseKeyPress.keys) > 0:
+                if not validKeyPress and validResponseKeyPress.keys:
                     keys = validResponseKeyPress.keys
                     print('keys',keys)
                     
