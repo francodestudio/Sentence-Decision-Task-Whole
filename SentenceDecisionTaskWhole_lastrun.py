@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on February 10, 2026, at 18:23
+    on February 12, 2026, at 10:09
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -272,6 +272,12 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='StartKeyboard',
         )
+    if deviceManager.getDevice('validResponseKeyPress') is None:
+        # initialise validResponseKeyPress
+        validResponseKeyPress = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='validResponseKeyPress',
+        )
     if deviceManager.getDevice('breakKeyPress') is None:
         # initialise breakKeyPress
         breakKeyPress = deviceManager.addDevice(
@@ -404,9 +410,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     dynamic_text = f"""Sentence Judgement Task.
     \n\nYou will complete 10 blocks of sentence judgement, with a 6-second break in between blocks.
     \nFor each sentence,you must indicate
-    \n{left}(left mouse click) if the sentence could be a literally true fact.For example, \"The funny sound was his snore\" is a statement that could be literally true;or
-    \n{right}(right mouse click) if the sentence could not be a literally true fact.For example, \"The desert storm was a carrot\" could never be true.
-    \n\nUse the mouse to indicate \"True\" or \"False\" for each sentence as quickly and accurately as you can. 
+    \n{left}(left arrow key) if the sentence could be a literally true fact.For example, \"The funny sound was his snore\" is a statement that could be literally true;or
+    \n{right}(right arrow key) if the sentence could not be a literally true fact.For example, \"The desert storm was a carrot\" could never be true.
+    \n\nUse only the appropriate arrow key buttons on your keyboard to indicate \"True\" or \"False\" for each sentence as \'quickly\' and \'accurately\' as you can. 
     A purple cross will appear once your response has been registered.
     \n\nPress the \"spacebar\" to begin."""
     
@@ -444,17 +450,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='black', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-2.0);
-    validResponseMouseClick = event.Mouse(win=win)
-    x, y = [None, None]
-    validResponseMouseClick.mouseClock = core.Clock()
     responsefixationCrossDisplay = visual.TextStim(win=win, name='responsefixationCrossDisplay',
         text='',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.08, wrapWidth=None, ori=0.0, 
         color='black', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
-    # Run 'Begin Experiment' code from storeValidResponseMouseClick
+        depth=-3.0);
+    validResponseKeyPress = keyboard.Keyboard(deviceName='validResponseKeyPress')
+    # Run 'Begin Experiment' code from storeValidResponseKeyPress
     
     
     
@@ -488,7 +492,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "End_Task_Routine" ---
     Instruction_Exit = visual.TextStim(win=win, name='Instruction_Exit',
-        text='You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x\' key to exit.',
+        text='You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x\' key to submit.',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='black', colorSpace='rgb', opacity=None, 
@@ -731,23 +735,27 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # create an object to store info about Routine Stims
             Stims = data.Routine(
                 name='Stims',
-                components=[StimuliText, LeftResponseInstruction, rightResponseInstruction, validResponseMouseClick, responsefixationCrossDisplay],
+                components=[StimuliText, LeftResponseInstruction, rightResponseInstruction, responsefixationCrossDisplay, validResponseKeyPress],
             )
             Stims.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
             StimuliText.setText(Stimuli
             )
-            # setup some python lists for storing info about the validResponseMouseClick
-            gotValidClick = False  # until a click is received
-            validResponseMouseClick.mouseClock.reset()
             responsefixationCrossDisplay.setText('+')
-            # Run 'Begin Routine' code from storeValidResponseMouseClick
-            validClick = False
+            # create starting attributes for validResponseKeyPress
+            validResponseKeyPress.keys = []
+            validResponseKeyPress.rt = []
+            _validResponseKeyPress_allKeys = []
+            # Run 'Begin Routine' code from storeValidResponseKeyPress
+            validKeyPress= False
             displayCross =  False
             valid_response_time =[]
             valid_resp = ''
-            valid_mouse_response =''
+            valid_key_response =''
+            
+            
+            
             
                 
             
@@ -875,33 +883,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # update status
                         rightResponseInstruction.status = FINISHED
                         rightResponseInstruction.setAutoDraw(False)
-                # *validResponseMouseClick* updates
-                
-                # if validResponseMouseClick is starting this frame...
-                if validResponseMouseClick.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
-                    # keep track of start time/frame for later
-                    validResponseMouseClick.frameNStart = frameN  # exact frame index
-                    validResponseMouseClick.tStart = t  # local t and not account for scr refresh
-                    validResponseMouseClick.tStartRefresh = tThisFlipGlobal  # on global time
-                    win.timeOnFlip(validResponseMouseClick, 'tStartRefresh')  # time at next scr refresh
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'validResponseMouseClick.started')
-                    # update status
-                    validResponseMouseClick.status = STARTED
-                    prevButtonState = validResponseMouseClick.getPressed()  # if button is down already this ISN'T a new click
-                
-                # if validResponseMouseClick is stopping this frame...
-                if validResponseMouseClick.status == STARTED:
-                    # is it time to stop? (based on global clock, using actual start)
-                    if tThisFlipGlobal > validResponseMouseClick.tStartRefresh + 4.5-frameTolerance:
-                        # keep track of stop time/frame for later
-                        validResponseMouseClick.tStop = t  # not accounting for scr refresh
-                        validResponseMouseClick.tStopRefresh = tThisFlipGlobal  # on global time
-                        validResponseMouseClick.frameNStop = frameN  # exact frame index
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'validResponseMouseClick.stopped')
-                        # update status
-                        validResponseMouseClick.status = FINISHED
                 
                 # *responsefixationCrossDisplay* updates
                 
@@ -936,31 +917,83 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # update status
                         responsefixationCrossDisplay.status = FINISHED
                         responsefixationCrossDisplay.setAutoDraw(False)
-                # Run 'Each Frame' code from storeValidResponseMouseClick
+                
+                # *validResponseKeyPress* updates
+                waitOnFlip = False
+                
+                # if validResponseKeyPress is starting this frame...
+                if validResponseKeyPress.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
+                    # keep track of start time/frame for later
+                    validResponseKeyPress.frameNStart = frameN  # exact frame index
+                    validResponseKeyPress.tStart = t  # local t and not account for scr refresh
+                    validResponseKeyPress.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(validResponseKeyPress, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'validResponseKeyPress.started')
+                    # update status
+                    validResponseKeyPress.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(validResponseKeyPress.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(validResponseKeyPress.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                
+                # if validResponseKeyPress is stopping this frame...
+                if validResponseKeyPress.status == STARTED:
+                    # is it time to stop? (based on global clock, using actual start)
+                    if tThisFlipGlobal > validResponseKeyPress.tStartRefresh + 4-frameTolerance:
+                        # keep track of stop time/frame for later
+                        validResponseKeyPress.tStop = t  # not accounting for scr refresh
+                        validResponseKeyPress.tStopRefresh = tThisFlipGlobal  # on global time
+                        validResponseKeyPress.frameNStop = frameN  # exact frame index
+                        # add timestamp to datafile
+                        thisExp.timestampOnFlip(win, 'validResponseKeyPress.stopped')
+                        # update status
+                        validResponseKeyPress.status = FINISHED
+                        validResponseKeyPress.status = FINISHED
+                if validResponseKeyPress.status == STARTED and not waitOnFlip:
+                    theseKeys = validResponseKeyPress.getKeys(keyList=['left','right'], ignoreKeys=["escape"], waitRelease=False)
+                    _validResponseKeyPress_allKeys.extend(theseKeys)
+                    if len(_validResponseKeyPress_allKeys):
+                        validResponseKeyPress.keys = _validResponseKeyPress_allKeys[-1].name  # just the last key pressed
+                        validResponseKeyPress.rt = _validResponseKeyPress_allKeys[-1].rt
+                        validResponseKeyPress.duration = _validResponseKeyPress_allKeys[-1].duration
+                # Run 'Each Frame' code from storeValidResponseKeyPress
                 if not displayCross:
                     responsefixationCrossDisplay.status = NOT_STARTED
                     responsefixationCrossDisplay.setAutoDraw(False)
                     displayCross = True
                 
-                if not validClick and t>0.50:
-                        validButtons= validResponseMouseClick.getPressed()
-                        if (validButtons[0] or validButtons[2]):
+                if not validKeyPress and len(validResponseKeyPress.keys) > 0:
+                    keys = validResponseKeyPress.keys
+                    print('keys',keys)
+                    
+                    valid_response_time = validResponseKeyPress.rt + 0.5
+                    print("valid_response_time",valid_response_time)
                    
-                        
-                            valid_response_time = validResponseMouseClick.mouseClock.getTime()
+                    if keys == 'left':
+                      valid_resp = left
+                      valid_key_response = 'left'
+                    elif keys == 'right':
+                       valid_resp = right
+                       valid_key_response = 'right'
+                    validKeyPress = True
+                    StimuliText.setAutoDraw(False)
+                    responsefixationCrossDisplay.setAutoDraw(True)
+                    responsefixationCrossDisplay.status = STARTED
+                    responsefixationCrossDisplay.setColor('purple')
+                
+                       
                             
-                            if validButtons[0]: 
-                                valid_resp = left
-                                valid_mouse_response = 'left'
-                            elif validButtons[2]:  
-                                valid_resp= right  
-                                valid_mouse_response = 'right'
-                     
-                            StimuliText.setAutoDraw(False)
-                            responsefixationCrossDisplay.setAutoDraw(True)
-                            responsefixationCrossDisplay.status = STARTED
-                            responsefixationCrossDisplay.setColor('purple')
                             
+                 #        validButtons= validResponseKeyPress.getPressed()
+                #        if (validButtons[0] or validButtons[2]):
+                #            valid_response_time = validResponseMouseClick.mouseClock.getTime()
+                #            if validButtons[0]: 
+                #                valid_resp = left
+                #                valid_mouse_response = 'left'
+                #            elif validButtons[2]:  
+                #                valid_resp= right  
+                #                valid_mouse_response = 'right'           
                 
                            
                 
@@ -1003,8 +1036,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             Stims.tStop = globalClock.getTime(format='float')
             Stims.tStopRefresh = tThisFlipGlobal
             thisExp.addData('Stims.stopped', Stims.tStop)
-            # store data for trialLoop (TrialHandler)
-            # Run 'End Routine' code from storeValidResponseMouseClick
+            # check responses
+            if validResponseKeyPress.keys in ['', [], None]:  # No response was made
+                validResponseKeyPress.keys = None
+            trialLoop.addData('validResponseKeyPress.keys',validResponseKeyPress.keys)
+            if validResponseKeyPress.keys != None:  # we had a response
+                trialLoop.addData('validResponseKeyPress.rt', validResponseKeyPress.rt)
+                trialLoop.addData('validResponseKeyPress.duration', validResponseKeyPress.duration)
+            # Run 'End Routine' code from storeValidResponseKeyPress
             
             # Score correctness
             validStr = "True" if correct_answer else "False"
@@ -1014,12 +1053,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # Record data to CSV
             trialLoop.addData('valid_rt', valid_response_time)
             trialLoop.addData('valid_resp', valid_resp)
-            trialLoop.addData('valid_mouse_key_resp', valid_mouse_response)
+            trialLoop.addData('valid_key_resp', valid_key_response)
             trialLoop.addData('valid_is_correct?', valid_corr_text)
             trialLoop.addData('valid_accuracy', valid_corr)
             #validResponseMouseClick.mouseClock.reset()
             responsefixationCrossDisplay.setColor('black')
-            print(valid_response_time)
+            validResponseKeyPress.clearEvents()
+            
+            print('valid_resp',valid_resp)
+            print('rt ', valid_response_time)
+            print('correct_answer',correct_answer)
+            print('accuracy',valid_corr)
+                    
+            
             
             # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
             if Stims.maxDurationReached:
