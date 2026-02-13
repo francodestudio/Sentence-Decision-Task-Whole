@@ -307,7 +307,7 @@ async function experimentInit() {
   Instruction_Exit = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instruction_Exit',
-    text: 'You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x\' key to submit.',
+    text: 'You have now completed the task.  \n\nThank you for your participation!  \n\nYou may now close the experiment. Press the "x" key to submit.',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.05,  wrapWidth: undefined, ori: 0.0,
@@ -876,9 +876,7 @@ function StimsRoutineEachFrame() {
       }
       if (((! validKeyPress) && validResponseKeyPress.keys)) {
           keys = validResponseKeyPress.keys;
-          console.log("keys", keys);
           valid_response_time = (validResponseKeyPress.rt + 0.5);
-          console.log("valid_response_time", valid_response_time);
           if ((keys === "left")) {
               valid_resp = left;
               valid_key_response = "left";
@@ -957,10 +955,6 @@ function StimsRoutineEnd(snapshot) {
       trialLoop.addData("valid_accuracy", valid_corr);
       responsefixationCrossDisplay.setColor("black");
       validResponseKeyPress.clearEvents();
-      console.log("valid_resp", valid_resp);
-      console.log("rt ", valid_response_time);
-      console.log("correct_answer", correct_answer);
-      console.log("accuracy", valid_corr);
       
       if (routineForceEnded) {
           routineTimer.reset();} else if (StimsMaxDurationReached) {
